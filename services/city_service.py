@@ -12,4 +12,4 @@ class CityService:
 
 	def postCity(self, city, state):
 		sql = "INSERT INTO cidades (nome, estado_id) VALUES  ('" + city + "', "+str(state)+") RETURNING *"
-		return self._db.pquery(sql)
+		return self._db.spquery(sql)

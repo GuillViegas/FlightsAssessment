@@ -1,6 +1,5 @@
 import psycopg2
 
-
 class DBconnection(object):
 	'''docstring for Postgres'''
 	_instance = None
@@ -33,27 +32,28 @@ class DBconnection(object):
 		self.connection = self._instance.connection
 		self.cursor = self._instance.cursor
 
-	def squery(self, query):
+	def query(self, query):
 		try:
 			self.cursor.execute(query)
 			result = self.cursor
-		except Exception as error:
-			print('error executing query "{}", error: {}'.format(query, error))
-			return None
-		else:
-			return result.fetchone()
-
-	def pquery(self, query):
-		try:
-			self.cursor.execute(query)
-			result = self.cursor
-			result = result.fetchone()
-			self.connection.commit()
 		except Exception as error:
 			print('error executing query "{}", error: {}'.format(query, error))
 			return None
 		else:
 			return result
+
+	def squery(self, query):
+		result = self.query(query)
+		return result.fetchone()
+
+	def spquery(self, query):
+		result = self.query(query)
+		self.connection.commit()
+		return result.fetchone()
+
+	def mquery(self, query):
+		result = self.query(query)
+		return result.fetchall()
 
 	def __del__(self):
 		self.connection.close()

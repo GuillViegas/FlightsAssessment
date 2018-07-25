@@ -47,9 +47,18 @@ class AirportService:
 		sql = "INSERT INTO aeroportos (iata, cidade, estado, geom) VALUES "
 		sql += "('" + iata + "', "+str(city_id)+", "+str(state_id)+", "
 		sql += "GeomFromEWKT('SRID=4326;POINT("+str(lon)+" "+str(lat)+")') ) RETURNING *"
-		return self._db.pquery(sql)	
-
+		return self._db.spquery(sql)
 
 	def getAirportByIata(self, iata):
 		sql = "SELECT * FROM aeroportos a WHERE a.iata = '" + iata + "'"
 		return self._db.squery(sql)
+
+	def getAllAirportsIata(self):
+		sql = "SELECT iata FROM aeroportos"
+		return self._db.mquery(sql)
+
+	def getAirportCoord(self, iata):
+		sql = "SELECT ST_AsText(geom) FROM aeroportos WHERE iata = '"+iata+"'"
+		coord = self._db.squery(sql)[0].split("(")[1] 
+		coord = (lon, lat) = coord[:-1].split()
+		return coord
