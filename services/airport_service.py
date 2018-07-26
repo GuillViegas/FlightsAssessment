@@ -35,7 +35,7 @@ class AirportService:
 							raise ValueError('State does not match any record in the database!')
 
 					except Exception as error:
-						print('Error +: ' + repr(error))
+						print('Error: ' + repr(error))
 
 					else:
 						city = CityService().postCity(city_name ,state[0])

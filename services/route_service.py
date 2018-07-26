@@ -42,3 +42,15 @@ class RouteService:
 		sql += "('" + origin+"', '"+dest+"', "+str(dist)+") RETURNING *"
 
 		return self._db.spquery(sql)
+
+	def getRouteID(self, origin, dest):
+		sql = "SELECT rota_id FROM rotas WHERE origem = '" + origin + "' AND destino = '" + dest + "'"
+		return self._db.squery(sql)
+
+	def getAllRoutes(self):
+		sql = "SELECT * FROM rotas"
+		return self._db.mquery(sql)
+
+	def getDistanceRouteByID(self, route):
+		sql = "SELECT distancia FROM rotas WHERE rota_id = " + str(route)
+		return self._db.squery(sql)
