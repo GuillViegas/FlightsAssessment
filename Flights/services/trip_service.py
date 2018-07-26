@@ -1,9 +1,9 @@
 import requests
-from dbconnection import DBconnection
-from route_service import RouteService
-from aircraft_service import AircraftService
-from datetime import datetime
-from datetime import timedelta
+from Filghts.service.dbconnection import DBconnection
+from Filghts.service.route_service import RouteService
+from Filghts.service.aircraft_service import AircraftService
+from Filghts.service.datetime import datetime
+from Filghts.service.datetime import timedelta
 
 class TripService:
 	_db = None
@@ -77,6 +77,22 @@ class TripService:
 
 	def updatePricePerKm(self, trip, price):
 		sql = "UPDATE viagens SET preco_km = " + str(price) + " WHERE viagem_id = " + str(trip) + " RETURNING *"
+		return self._db.spquery(sql)
+
+	def updateAllDurationTrips(self):
+		trips = self.getAllTrips()
+		trips_updated = []
+
+		for trip in trips:
+			departure_time = trip[1]
+			arrival_time = trip[2]
+			duration = arrival_time - departure_time
+			trips_updated.append(self.updateDuration(trip[0], duration))
+
+		return trips_updated
+
+	def updateDuration(self, trip, duration):
+		sql = "UPDATE viagens SET duracao = '" + str(duration) + "' WHERE viagem_id = " + str(trip) + " RETURNING *"
 		return self._db.spquery(sql)
 
 

@@ -1,4 +1,4 @@
-from dbconnection import DBconnection
+from Filghts.service.dbconnection import DBconnection
 
 class AircraftService:
 	_db = None
@@ -34,3 +34,25 @@ class AircraftService:
 	def postModel(self, model, manufacturer):
 		sql = "INSERT INTO modelos (nome, fabricante) VALUES ('" + model + "', " + str(manufacturer) + ") RETURNING *"
 		return self._db.spquery(sql)
+
+	def getAllModels(self):
+		sql = "SELECT * FROM modelos"
+		return self._db.mquery(sql)
+
+	def updateAllModelsSpeed(self):
+		sql = "SELECT m.modelo_id, SUM(r.distancia), SUM(v.duracao) FROM rotas r, viagens v, modelos m WHERE "
+		sql += "v.aeronave = m.modelo_id AND v.rota = r.rota_id GROUP BY m.modelo_id"
+		models = self._db.mquery(sql)
+		models_updated = []
+
+		for model in models:
+			speed = model[1]/float(model[2].total_seconds())*3600
+			models_updated.append(self.updateModelSpeed(model[0], speed))
+
+		return models_updated
+
+	def updateModelSpeed(self, model, speed):
+		sql = "UPDATE modelos SET velocidade = " + str(speed) + " WHERE modelo_id = " + str(model) + " RETURNING *"
+		return self._db.spquery(sql)
+
+

@@ -1,6 +1,6 @@
-from dbconnection import DBconnection
-from airport_service import AirportService
-from haversine import haversine
+from Filghts.service.dbconnection import DBconnection
+from Filghts.service.airport_service import AirportService
+from Flights.utils.haversine import haversine
 
 class RouteService:
 	_db = None

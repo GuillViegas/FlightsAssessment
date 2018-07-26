@@ -1,4 +1,4 @@
-from dbconnection import DBconnection
+from Filghts.service.dbconnection import DBconnection
 
 class StateService:
 	_db = None
