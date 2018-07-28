@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class DBconnection(object):
 	'''docstring for Postgres'''
 	_instance = None

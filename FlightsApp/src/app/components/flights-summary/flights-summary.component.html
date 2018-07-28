@@ -1,0 +1,27 @@
+<mat-grid-list cols="5" rowHeight="25px">
+  <mat-grid-tile  colspan=2 rowspan=2>
+  	<span class="align-left"><b>Longest trip in KM</b></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=2 rowspan=2>
+  	<span class="align-left"><b>Longest in flight duration</b></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=2>
+  	<span class="align-left"><b>Most number of airports</b></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=1>
+  	<span class="align-left subtitle">From: <span class="content">{{route.origin}}</span></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=1>
+  	<span class="align-left subtitle">To: <span class="content">{{route.dest}}</span></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=1>
+  	<span class="align-left subtitle">From: <span class="content">{{route.origin}}</span></span>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=1>
+  	<span class="align-left subtitle">To: <span class="content">{{route.dest}}</span></span>	
+  </mat-grid-tile>
+  <mat-grid-tile colspan=1 rowspan=1>
+  	<span class="align-left content">Minas Gerais</span>
+  </mat-grid-tile>
+</mat-grid-list>
+<app-table-flights-summary></app-table-flights-summary>
