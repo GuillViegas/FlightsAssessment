@@ -4,8 +4,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class AircraftController:
-    @staticmethod
-    def searchForAircraft(aircraft, manufacturer):
+    def searchForAircraft(self, aircraft, manufacturer):
         try:
             aircraftdb = session.query(Aircraft).filter_by(name=aircraft).one()
         except NoResultFound:
@@ -32,5 +31,17 @@ class AircraftController:
         for aircraft in aircrafts_speed:
             speed = aircraft[1] / float(aircraft[2].total_seconds()) * 3600
             session.query(Aircraft).filter(Aircraft.aircraft_id == aircraft[0]).update({'speed': speed})
+
+        session.commit()
+
+    def setAllAircraftPriceKM(self):
+        sql = '''SELECT a.aircraft_id, SUM(r.distance), SUM(t.price) FROM routes r, trips t, aircrafts a WHERE
+                                t.aircraft = a.aircraft_id AND t.route = r.route_id GROUP BY a.aircraft_id'''
+
+        aircrafts_speed = db.execute(sql)
+
+        for aircraft in aircrafts_speed:
+            price_km = float(aircraft[2])/aircraft[1]
+            session.query(Aircraft).filter(Aircraft.aircraft_id == aircraft[0]).update({'price_km': price_km})
 
         session.commit()

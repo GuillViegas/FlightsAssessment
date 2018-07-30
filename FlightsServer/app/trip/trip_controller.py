@@ -35,15 +35,16 @@ class TripController:
                 aircraft_model = str(trip['aircraft']['model'])
                 aircraft_manufacturer = str(trip['aircraft']['manufacturer'])
                 aircraft = AircraftController.searchForAircraft(aircraft=aircraft_model, manufacturer=aircraft_manufacturer)
+                arrival_time = datetime.strptime(trip['arrival_time'], "%Y-%m-%dT%H:%M:%S")
+                departure_time = datetime.strptime(trip['departure_time'], "%Y-%m-%dT%H:%M:%S")
+                duration = arrival_time - departure_time
                 trip = Trip(route=route.route_id, departure_time=str(trip['departure_time']),
                                  arrival_time=str(trip['arrival_time']), price=str(trip['fare_price']),
-                            aircraft=aircraft.aircraft_id)
+                            aircraft=aircraft.aircraft_id, duration=duration)
                 session.add(trip)
-                session.commit()
-                session.refresh(trip)
-                trip.duration = trip.arrival_time - trip.departure_time
-                session.commit()
                 trips.append(trip)
+
+            session.commit()
 
         return trips
 

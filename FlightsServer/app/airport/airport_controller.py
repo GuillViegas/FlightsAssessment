@@ -73,7 +73,7 @@ class AirportController:
                                 FROM routes
                                 GROUP BY origin ) q
 
-                            JOIN routes r ON r.origin = q.origin AND q.max = r.distance) q2 ON q1.origin = q2.origin;'''
+                            JOIN routes r ON r.origin = q.origin AND q.max = r.distance) q2 ON q1.origin = q2.origin ORDER BY q1.origin;'''
 
         statistics = db.execute(sql)
         airportStatistics = []

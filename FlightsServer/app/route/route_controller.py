@@ -6,8 +6,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class RouteController:
-    @staticmethod
-    def createRoutes():
+    def createRoutes(self):
         airports = session.query(Airport).all()
         routes = []
 

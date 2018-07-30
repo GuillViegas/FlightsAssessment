@@ -11,6 +11,6 @@ def calcDistanceKm(geom1, geom2):
 
 def ST_AsTuple(coord):
     coord = coord[0].split("(")[1]
-    coord = (lon, lat) = coord[:-1].split()
+    coord = (lat, lng) = coord[:-1].split()
 
     return coord

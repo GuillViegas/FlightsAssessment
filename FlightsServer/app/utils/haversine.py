@@ -16,8 +16,8 @@ def haversine(point1, point2, miles=False):
 
     """
     # unpack latitude/longitude
-    lng1, lat1 = point1
-    lng2, lat2 = point2
+    lat1, lng1 = point1
+    lat2, lng2 = point2
 
     # convert all latitudes/longitudes from decimal degrees to radians
     lat1, lng1, lat2, lng2 = map(radians, (float(lat1), float(lng1), float(lat2), float(lng2)))
