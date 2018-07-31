@@ -92,5 +92,6 @@ class AirportController:
             city = session.query(City).filter_by(city_id=airport.city).one()
             r.append({'iata': airport.iata,
                       'city': city.name})
+            r = sorted(r, key=lambda x: x['city'], reverse=False)
 
         return r

@@ -93,3 +93,8 @@ class TripController:
                  'duration': str(trip.duration)})
 
         return r
+
+    def doSearch(self, origin, destination, departure_date):
+        params = {'base_url': BASE_URL, 'api_key': API_KEY_2XT, 'origin': origin, 'dest': destination, 'departure_date': departure_date}
+        url = "%(base_url)s/%(api_key)s/%(origin)s/%(dest)s/%(departure_date)s" % params
+        return requests.get(url, auth=CREDENCIAL_2XT).json()

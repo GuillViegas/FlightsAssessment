@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AirportService } from '../../services/airport.service';
+import { TripService } from '../../services/trip.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatTableDataSource } from '@angular/material';
 
 
 export interface Airport {
@@ -13,14 +16,15 @@ export interface Airport {
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  displayedColumns: string[] = ['departure_time', 'arrival_time', 'price', 'aircraft'];
+
   origin;
   destination;
-  airports: Airport[] = [
-    {iata: 'BHZ', city: 'Belo Horizonte'},
-    {iata: 'BSB', city: 'Brasília'}
-  ];
+  departure_date;
+  airports: Airport[];
+  trips;
 
-  constructor(private airportService: AirportService) { }
+  constructor(private airportService: AirportService, private tripService: TripService) { }
 
   ngOnInit() {
     this.getAllAirports();
@@ -30,6 +34,13 @@ export class SearchComponent implements OnInit {
     this.airportService.getAllAirports().subscribe((res) => {
       this.airports = res;
     });
+  }
+
+  doSearch(){
+    this.tripService.doSearch(this.origin, this.destination, this.departure_date)
+                                      .subscribe((res) => {
+                                        this.trips = res;
+                                      });
   }
 
 }
