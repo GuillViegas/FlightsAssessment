@@ -5,7 +5,7 @@ from app import base
 
 
 class SearchUrl(base):
-    __tablename__ = "search_url"
+    __tablename__ = "search_urls"
 
     search_url_id = Column(Integer, primary_key=True)
     base_url = Column(Integer, ForeignKey("base_urls.base_url_id"), nullable=False)

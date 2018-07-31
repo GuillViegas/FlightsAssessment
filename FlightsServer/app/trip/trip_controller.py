@@ -3,6 +3,7 @@ from app import session
 from app.route.route import Route
 from trip import Trip
 from app.search_url.search_url_controller import SearchUrlController
+from app.search_url.search_url import BaseUrl, ApiKey
 from config import BASE_URL, API_KEY_2XT, CREDENCIAL_2XT
 from app.aircraft.aircraft_controller import AircraftController
 from datetime import datetime, timedelta
@@ -52,10 +53,12 @@ class TripController:
 
     def getFlightSchedulesFromUrl(self, origin, dest):
         departure_date = (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d")
-        searchUrl = SearchUrlController().postSearchUrl(base_url=BASE_URL, api_key=API_KEY_2XT, departure_airport=origin,
+        base_url = session.query(BaseUrl).filter_by(base_url=BASE_URL).one()
+        api_key = session.query(ApiKey).filter_by(api_key=API_KEY_2XT).one()
+        searchUrl = SearchUrlController().postSearchUrl(base_url=base_url.base_url, api_key=api_key.api_key, departure_airport=origin,
                                                         arrival_airport=dest, departure_date=departure_date)
 
-        params = {'base_url': searchUrl.base_url, 'api_key': searchUrl.api_key, 'origin': searchUrl.departure_airport, 'dest': searchUrl.arrival_airport, 'departure_date': searchUrl.departure_date}
+        params = {'base_url': base_url.base_url, 'api_key': api_key.api_key, 'origin': searchUrl.departure_airport, 'dest': searchUrl.arrival_airport, 'departure_date': searchUrl.departure_date}
         url = "%(base_url)s/%(api_key)s/%(origin)s/%(dest)s/%(departure_date)s" % params
         r = requests.get(url, auth=CREDENCIAL_2XT)
         flights_schedules = r.json()

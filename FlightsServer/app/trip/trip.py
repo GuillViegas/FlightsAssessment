@@ -14,6 +14,6 @@ class Trip(base):
     route = Column(Integer, ForeignKey("routes.route_id"), nullable=False)
     price_km = Column(DECIMAL(5,2))
     duration = Column(Interval)
-    search_url = Column(Integer, ForeignKey("search_urls.route_id"), nullable=False)
+    search_url = Column(Integer, ForeignKey("search_urls.search_url_id"), nullable=False)
 
 

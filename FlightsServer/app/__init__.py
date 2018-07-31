@@ -1,9 +1,9 @@
 from flask import Flask
 from sqlalchemy import create_engine
+from sqlalchemy.sql import text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from config import API_KEY_2XT
-from config import BASE_URL
+from config import API_KEY_2XT, BASE_URL, STATES_DATA_FILE
 from sqlalchemy.orm.exc import NoResultFound
 
 # Import gateway(s)
@@ -21,6 +21,7 @@ db = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # Database extensions
 db.execute("CREATE EXTENSION IF NOT EXISTS postgis")
 
+
 base = declarative_base()
 
 # Entities
@@ -30,9 +31,9 @@ from app.airport.airport import Airport
 from app.route.route import Route
 from app.aircraft.aircraft import Manufacturer
 from app.aircraft.aircraft import Aircraft
-from app.trip.trip import Trip
 from app.search_url.search_url import ApiKey, BaseUrl
 from app.search_url.search_url import SearchUrl
+from app.trip.trip import Trip
 
 # Create all entities
 base.metadata.create_all(db)
@@ -52,23 +53,25 @@ except NoResultFound:
     session.add(ApiKey(api_key=API_KEY_2XT))
     session.commit()
 
+db.execute(text("COPY states FROM '%s' WITH (FORMAT csv)" % STATES_DATA_FILE).execution_options(autocommit=True))
+
 from app.airport.airport_controller import AirportController
 airportController = AirportController()
-#airportController.storeAirpotsDB()
+airportController.storeAirpotsDB()
 
 from app.route.route_controller import RouteController
 routeController = RouteController()
-#routeController.createRoutes()
+routeController.createRoutes()
 
 from app.trip.trip_controller import TripController
 tripController = TripController()
-#tripController.postAllTrips()
-#tripController.updatePriceKm()
+tripController.postAllTrips()
+tripController.updatePriceKm()
 
 from app.aircraft.aircraft_controller import AircraftController
 aircraftController = AircraftController()
-#aircraftController.setAllAircraftSpeed()
-#aircraftController.setAllAircraftPriceKM()
+aircraftController.setAllAircraftSpeed()
+aircraftController.setAllAircraftPriceKM()
 
 # Views
 from app.view.search_trip_view import SearchTripView
