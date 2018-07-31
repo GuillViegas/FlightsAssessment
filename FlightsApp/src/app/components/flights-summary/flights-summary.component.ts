@@ -20,18 +20,15 @@ export class FlightsSummaryComponent implements OnInit {
   ngOnInit() {
     this.routeService.getLongestTripKM().subscribe((res) => {
       this.longestkm = res;
-      console.log(this.longestkm)
-    }
+    });
 
     this.tripService.longestFlightDuration().subscribe((res) => {
       this.longestDuration = res;
-      console.log(this.longestDuration)
-    }
+    });
 
     this.stateService.getStateMostNumberOfAirports().subscribe((res) => {
       this.moreAirports = res;
-      console.log(this.moreAirports)
-    }
+    });
   }
 
 }

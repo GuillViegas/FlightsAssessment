@@ -16,13 +16,15 @@ import { AppComponent } from './app.component';
 import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { FlightsSummaryComponent } from './components/flights-summary/flights-summary.component';
 import { TableFlightsSummaryComponent } from './components/table-flights-summary/table-flights-summary.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavTabsComponent,
     FlightsSummaryComponent,
-    TableFlightsSummaryComponent
+    TableFlightsSummaryComponent,
+    SearchComponent
   ],
   imports: [
     HttpModule,

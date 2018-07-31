@@ -1,0 +1,19 @@
+<mat-form-field>
+  <mat-select placeholder="Origin" [(value)]=origin>
+    <mat-option *ngFor="let airport of airports" [value]="airport.iata">
+      {{airport.city}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="Destination" [(value)]=destination>
+    <mat-option *ngFor="let airport of airports" [value]="airport.iata">
+      {{airport.city}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Departure Date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
