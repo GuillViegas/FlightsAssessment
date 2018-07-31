@@ -17,7 +17,7 @@ class SearchUrlController:
             session.commit()
 
         try:
-            apiKey = session.query(BaseUrl).filter_by(api_key=api_key).one()
+            apiKey = session.query(ApiKey).filter_by(api_key=api_key).one()
 
         except NoResultFound:
             apiKey = ApiKey(api_key=api_key)
