@@ -37,7 +37,7 @@ class TripController:
             for trip in flights_schedules['options']:
                 aircraft_model = str(trip['aircraft']['model'])
                 aircraft_manufacturer = str(trip['aircraft']['manufacturer'])
-                aircraft = AircraftController.searchForAircraft(aircraft=aircraft_model, manufacturer=aircraft_manufacturer)
+                aircraft = AircraftController().searchForAircraft(aircraft=aircraft_model, manufacturer=aircraft_manufacturer)
                 arrival_time = datetime.strptime(trip['arrival_time'], "%Y-%m-%dT%H:%M:%S")
                 departure_time = datetime.strptime(trip['departure_time'], "%Y-%m-%dT%H:%M:%S")
                 duration = arrival_time - departure_time
