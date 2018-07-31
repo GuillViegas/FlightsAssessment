@@ -13,3 +13,10 @@ def getAiportStatistics():
     response = airportController.getAiportStatistics()
 
     return Response(json.dumps(response), mimetype='application/json')
+
+@airport.route('/getallairports', methods=['GET'])
+def getAllAirports():
+    airportController = AirportController()
+    response = airportController.getAllAirports()
+
+    return Response(json.dumps(response), mimetype='application/json')

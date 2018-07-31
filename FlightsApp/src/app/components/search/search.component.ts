@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AirportService } from '../../services/airport.service';
 
 
 export interface Airport {
@@ -19,9 +20,16 @@ export class SearchComponent implements OnInit {
     {iata: 'BSB', city: 'Brasília'}
   ];
 
-  constructor() { }
+  constructor(private airportService: AirportService) { }
 
   ngOnInit() {
+    this.getAllAirports();
+  }
+
+  getAllAirports(){
+    this.airportService.getAllAirports().subscribe((res) => {
+      this.airports = res;
+    });
   }
 
 }

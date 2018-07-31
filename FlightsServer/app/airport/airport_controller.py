@@ -79,6 +79,18 @@ class AirportController:
         airportStatistics = []
 
         for statistic in statistics:
-            airportStatistics.append({'origin': statistic[0], 'nearest': statistic[1], 'min_distance': statistic[2], 'farthest': statistic[3], 'max_distance': statistic[4]})
+            airportStatistics.append({'origin': statistic[0], 'nearest': statistic[1], 'min_distance': statistic[2],
+                                      'farthest': statistic[3], 'max_distance': statistic[4]})
 
         return airportStatistics
+
+    def getAllAirports(self):
+        airports = session.query(Airport).order_by(Airport.iata).all()
+        r = []
+
+        for airport in airports:
+            city = session.query(City).filter_by(city_id=airport.city).one()
+            r.append({'iata': airport.iata,
+                      'city': city.name})
+
+        return r
