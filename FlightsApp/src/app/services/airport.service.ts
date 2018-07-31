@@ -12,7 +12,7 @@ export class AirportService {
     	headers.append('Content-Type', 'application/json');
 
     	const options = new RequestOptions({ headers: headers });
-	    return this.http.get('http://localhost:8000/api/airport/airportstatistics', options).pipe(
+	    return this.http.get('http://localhost:8080/airport/getairportstatistics', options).pipe(
 	            map((res) => {
 	              return res.json();
               })

@@ -3,6 +3,7 @@ from app.route.route import Route
 from app import session
 from app.utils import calcDistanceKm
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.sql import func
 
 
 class RouteController:
@@ -34,3 +35,15 @@ class RouteController:
         session.commit()
 
         return routes
+
+    def getLongestTripKM(self):
+        distance = session.query(func.max(Route.distance)).one()
+        routes = session.query(Route).filter_by(distance=distance).all()
+        r = []
+
+        for route in routes:
+            r.append({ 'origin': route.origin,
+                      'destination': route.destination,
+                      'distance': route.distance})
+
+        return r

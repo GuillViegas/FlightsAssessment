@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import Response
 import json
-from app.airport.airport_controller import AirportController
+from airport_controller import AirportController
 
 
 airport = Blueprint('airport', __name__, url_prefix='/airport')

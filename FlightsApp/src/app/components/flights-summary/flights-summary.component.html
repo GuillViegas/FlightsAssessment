@@ -9,19 +9,19 @@
   	<span class="align-left"><b>Most number of airports</b></span>
   </mat-grid-tile>
   <mat-grid-tile colspan=1 rowspan=1>
-  	<span class="align-left subtitle">From: <span class="content">{{route.origin}}</span></span>
+  	<span class="align-left subtitle">From: <span class="content">{{longestkm[0].origin}}</span></span>
   </mat-grid-tile>
   <mat-grid-tile colspan=1 rowspan=1>
-  	<span class="align-left subtitle">To: <span class="content">{{route.dest}}</span></span>
+  	<span class="align-left subtitle">To: <span class="content">{{longestkm[0].destination}}</span></span>
   </mat-grid-tile>
   <mat-grid-tile colspan=1 rowspan=1>
-  	<span class="align-left subtitle">From: <span class="content">{{route.origin}}</span></span>
+  	<span class="align-left subtitle">From: <span class="content">{{longestDuration[0].origin}}</span></span>
   </mat-grid-tile>
   <mat-grid-tile colspan=1 rowspan=1>
-  	<span class="align-left subtitle">To: <span class="content">{{route.dest}}</span></span>	
+  	<span class="align-left subtitle">To: <span class="content">{{longestDuration[0].destination}}</span></span>
   </mat-grid-tile>
   <mat-grid-tile colspan=1 rowspan=1>
-  	<span class="align-left content">Minas Gerais</span>
+  	<span class="align-left content">{{moreAirports.name}}</span>
   </mat-grid-tile>
 </mat-grid-list>
 <app-table-flights-summary></app-table-flights-summary>

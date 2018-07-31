@@ -4,29 +4,41 @@
   </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource">
 
-    <!-- Iata Column -->
-    <ng-container matColumnDef="iata">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Iata </th>
-      <td mat-cell *matCellDef="let airport"> {{airport.iata}} </td>
+    <!-- Origin Column -->
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef> Origin </th>
+      <td mat-cell *matCellDef="let statistic"> {{statistic.origin}} </td>
     </ng-container>
 
-    <!-- City Column -->
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
-      <td mat-cell *matCellDef="let airport"> {{airport.city}} </td>
+    <!-- Nearest Destination Column -->
+    <ng-container matColumnDef="nearest">
+      <th mat-header-cell *matHeaderCellDef> Nearest </th>
+      <td mat-cell *matCellDef="let statistic"> {{statistic.nearest}} </td>
     </ng-container>
 
-    <!-- State Column -->
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-      <td mat-cell *matCellDef="let airport"> {{airport.state}} </td>
+    <!-- Nearest Destination Column -->
+    <ng-container matColumnDef="min distance">
+      <th mat-header-cell *matHeaderCellDef> Min Distance </th>
+      <td mat-cell *matCellDef="let statistic"> {{statistic.min_distance}} </td>
+    </ng-container>
+
+    <!-- Farthest Destination Column -->
+    <ng-container matColumnDef="farthest">
+      <th mat-header-cell *matHeaderCellDef> Farthest </th>
+      <td mat-cell *matCellDef="let statistic"> {{statistic.farthest}} </td>
+    </ng-container>
+
+    <!-- Farthest Destination Column -->
+    <ng-container matColumnDef="max distance">
+      <th mat-header-cell *matHeaderCellDef> Max Distance </th>
+      <td mat-cell *matCellDef="let statistic"> {{statistic.max_distance}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="airportStatistics.length" [pageSizeOptions]="[5, 10, 50, 100, 125]"></mat-paginator>
 </div>

@@ -8,20 +8,21 @@ import { AirportService } from '../../services/airport.service';
   styleUrls: ['./table-flights-summary.component.css']
 })
 export class TableFlightsSummaryComponent implements OnInit {
-  displayedColumns: string[] = ['iata', 'city', 'state' ];
-  dataSource: MatTableDataSource<Airport>;
-  aiports = [];
+  displayedColumns: string[] = ['origin', 'nearest', 'min distance', 'farthest', 'max distance'];
+  dataSource: MatTableDataSource<AirportStatistics>;
+  airportStatistics = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private airportService: AirportService) {
-    this.dataSource = new MatTableDataSource<Airport>(AIRPORT_DATA);
   }
 
+  ngAfterViewInit() {
+
+    }
+
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.getAiportStatistics();
   }
 
@@ -35,22 +36,18 @@ export class TableFlightsSummaryComponent implements OnInit {
 
   getAiportStatistics(){
     this.airportService.getAiportStatistics().subscribe((res) => {
-      this.aiports = res;
+      this.airportStatistics = res;
+      this.dataSource = new MatTableDataSource<AirportStatistics>(this.airportStatistics);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 }
 
-export interface Airport {
-  iata: string;
-  city: string;
-  state: string;
+export interface AirportStatistics {
+  origin: string;
+  nearest: string;
+  min_distance: number;
+  farthest: string;
+  max_distance: number;
 }
-
-const AIRPORT_DATA: Airport[] = [
-  {iata: "AAX", city: "Araxa", state: "MG"},
-  {iata: "AFL", city: "Alta Floresta", state: "MT"},
-  {iata: "AJU", city: "Aracaju", state: "SE"},
-  {iata: "AQA", city: "Araraquara", state: "SP"},
-  {iata: "ARU", city: "Aracatuba", state: "SP"},
-  {iata: "ATM", city: "Altamira", state: "PA"}
-];

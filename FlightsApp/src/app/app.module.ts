@@ -8,6 +8,8 @@ import { HttpModule } from '@angular/http';
 //Services
 import { AirportService } from './services/airport.service'
 import { RouteService } from './services/route.service'
+import { StateService } from './services/state.service'
+import { TripService } from './services/trip.service'
 
 //Component
 import { AppComponent } from './app.component';
@@ -30,7 +32,9 @@ import { TableFlightsSummaryComponent } from './components/table-flights-summary
   ],
   providers: [
     AirportService,
-    RouteService
+    RouteService,
+    StateService,
+    TripService
   ],
   bootstrap: [AppComponent]
 })

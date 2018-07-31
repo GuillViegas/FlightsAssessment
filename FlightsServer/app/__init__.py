@@ -31,8 +31,8 @@ from app.route.route import Route
 from app.aircraft.aircraft import Manufacturer
 from app.aircraft.aircraft import Aircraft
 from app.trip.trip import Trip
-from app.base_url import BaseUrl
-from app.api_key import ApiKey
+from app.search_url.search_url import ApiKey, BaseUrl
+from app.search_url.search_url import SearchUrl
 
 # Create all entities
 base.metadata.create_all(db)
@@ -47,7 +47,7 @@ except NoResultFound:
     session.commit()
 
 try:
-    session.query(ApiKey).filter_by(api_key=BASE_URL).one()
+    session.query(ApiKey).filter_by(api_key=API_KEY_2XT).one()
 except NoResultFound:
     session.add(ApiKey(api_key=API_KEY_2XT))
     session.commit()
@@ -68,8 +68,20 @@ tripController = TripController()
 from app.aircraft.aircraft_controller import AircraftController
 aircraftController = AircraftController()
 #aircraftController.setAllAircraftSpeed()
-aircraftController.setAllAircraftPriceKM()
+#aircraftController.setAllAircraftPriceKM()
+
+# Views
+from app.view.search_trip_view import SearchTripView
 
 # Register blueprint(s)
 from app.airport.airport_gateway import airport
 app.register_blueprint(airport)
+
+from app.route.route_gateway import route
+app.register_blueprint(route)
+
+from app.trip.trip_gateway import trip
+app.register_blueprint(trip)
+
+from app.state.state_gateway import state
+app.register_blueprint(state)
